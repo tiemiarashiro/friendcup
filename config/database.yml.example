@@ -1,0 +1,30 @@
+
+# Para criar o banco:
+#
+# Passo 1: Instalar o postgre
+#     sudo apt-get install postgresql
+#
+# Passo 2: Criar um usuário no postgre
+#     sudo -u postgres psql postgres
+#     CREATE USER {username} PASSWORD '{password}';
+#     ALTER ROLE {username} SUPERUSER;
+#
+# Passo 3: Configurar este arquivo com o usuário criado
+#
+# Passo 4: Criar o banco:
+#     rake db:create
+# \o/
+
+development:
+  adapter: postgresql
+  database: friendcup
+  pool: 5
+  username: {username}
+  password: {password}
+
+test:
+  adapter: postgresql
+  database: friendcup_test
+  pool: 5
+  username: {username}
+  password: {password}
