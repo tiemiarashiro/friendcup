@@ -1,0 +1,8 @@
+language: ruby
+rvm:
+  - 2.3.0
+services:
+  - postgresql
+before_script:
+  - psql -c 'create database friendcup_test;' -U postgres
+script: bundle exec rspec spec --color --format doc
