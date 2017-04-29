@@ -1,24 +1,10 @@
-# README
+# FRIENDCUP
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Travis CI:<br/>
+<a href="https://travis-ci.org/tiemiarashiro/friendcup"><img src="https://travis-ci.org/tiemiarashiro/friendcup.svg?branch=master" /></a>
 
-Things you may want to cover:
+<br />
 
-* Ruby version
+Heroku:<br />
+https://friendcup.herokuapp.com/<br/>
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
