@@ -19,12 +19,12 @@ development:
   adapter: postgresql
   database: friendcup
   pool: 5
-  username: {username}
-  password: {password}
+  username: ubuntu
+  password: ubuntu
 
 test:
   adapter: postgresql
   database: friendcup_test
   pool: 5
-  username: {username}
-  password: {password}
+  username: ubuntu
+  password: ubuntu
