@@ -19,27 +19,34 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "colors";
+
+
 .navbar {
   border-radius: 0;
   background-color: $base_color;
   border: 0;
   color: #FFFFFF;
-  div ul li.active {
-    background-color: #FFFFFF;
-    a {
-      color: $base_color;
+  div ul li {
+    :hover{
+      background-color: $secondary_color;
+    }
+    &.active, &.active :hover{
+      background-color: #FFFFFF;
+      a {
+        color: $base_color;
+      }
     }
   }
-  
+
   a {
       color: #FFFFFF;
     }
-    
+
   .logo {
     height: 40px;
     margin: 5px 0px;
   }
-  
+
   .logo-link{
     font-family: Arial;
     margin-right: 10px;
