@@ -30,16 +30,32 @@
             <li><a href="#about">Campeonatos</a></li>
             <li><a href="#contact">Grupos</a></li>
           </ul>
+          
+          <ul class="nav navbar-nav navbar-right">
+          
+            <% if user_signed_in? %>
+              <li><%= link_to current_user.email, edit_user_registration_path %></li>
+              <li><%= link_to "Sair", destroy_user_session_path, method: :delete %></li>
+            <% else %>
+              <li><%= link_to "Registrar-se", new_user_registration_path %></li>
+              <li><%= link_to "Entrar", new_user_session_path %></li>
+            <% end %>
+          </ul>
         </div><!--/.nav-collapse -->
       </div>
     </nav>
 
     <div class="container">
+      <% if notice %><div class="alert alert-info"><%= notice %></div><% end %>
+      <% if alert %><div class="alert alert-warning"><%= alert %></div><% end %>
+      
       <%= yield %>
+      <!-- Codigo comentado porque aparece em todas as paginas
       <div class="starter-template">
         <h1>Bootstrap starter template</h1>
         <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
       </div>
+      -->
 
     </div><!-- /.container -->
     
