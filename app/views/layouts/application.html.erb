@@ -37,7 +37,7 @@
               <li><%= link_to current_user.email, edit_user_registration_path %></li>
               <li><%= link_to "Sair", destroy_user_session_path, method: :delete %></li>
             <% else %>
-              <li><%= link_to "Registrar-se", new_user_registration_path %></li>
+              <li><%= link_to "Inscrever-se", new_user_registration_path %></li>
               <li><%= link_to "Entrar", new_user_session_path %></li>
             <% end %>
           </ul>

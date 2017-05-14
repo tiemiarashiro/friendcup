@@ -1,0 +1,37 @@
+en:
+  devise:
+    confirmations:
+      new:
+        title: Resend confirmation instructions
+        submit: Resend confirmation instructions
+      link: Didn't receive confirmation instructions?
+    passwords:
+      edit:
+        title: Change your password
+        submit: Change my password
+      new:
+        title: Forgot your password?
+        submit: Send me reset password instructions
+    registrations:
+      edit:
+        title: Edit {resource}
+        update: Update
+        cancel:
+          title: Cancel my account
+          message: Unhappy?
+          action: Cancel my account
+          confirm: Are you sure?
+        back: Back
+      new:
+        title: Sign up
+        submit: Sign up
+    sessions:
+      new:
+        title: Sign in
+        submit: Sign in
+      link: Sign in with {provider}
+    unlocks:
+      new:
+        title: Resend unlock instructions
+        submit: Resend unlock instructions
+      link: Didn't receive unlock instructions?

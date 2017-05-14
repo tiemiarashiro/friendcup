@@ -40,6 +40,8 @@ gem 'jbuilder', '~> 2.5'
 gem 'bootstrap-sass', '~> 3.3.6'
 
 gem 'devise'
+gem 'devise-i18n'
+gem 'devise-bootstrap-views'
 
 group :test do
   gem 'shoulda-matchers', '~> 3.0'
