@@ -7,20 +7,28 @@
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
       <div class="form-group">
         <%= f.label :email %>
-        <%= f.email_field :email, autofocus: true, class: 'form-control' %>
+        <%= f.email_field :email, autofocus: true, class: 'form-control', disabled: true %>
       </div>
       <div class="form-group">
-        <%= f.label :password %> <i>(<%= t('.leave_blank_if_you_don_t_want_to_change_it', default: "leave blank if you don't want to change it") %>)</i>
-        <%= f.password_field :password, autocomplete: "off", class: 'form-control' %>
+        <%= f.label :name %>
+        <%= f.text_field :name, autofocus: true, class: 'form-control' %>
       </div>
-      <div class="form-group">
-        <%= f.label :password_confirmation %>
-        <%= f.password_field :password_confirmation, class: 'form-control'  %>
-      </div>
-      <div class="form-group">
-        <%= f.label :current_password %> <i>(<%= t('.we_need_your_current_password_to_confirm_your_changes', default: 'we need your current password to confirm your changes') %>)</i>
-        <%= f.password_field :current_password, class: 'form-control' %>
-      </div>
+      
+      <!-- O usuario so pode alterar a senha se seu login nao for com facebook -->
+      <% if not current_user.provider = "Facebook" %>
+        <div class="form-group">
+          <%= f.label :password %> <i>(<%= t('.leave_blank_if_you_don_t_want_to_change_it', default: "leave blank if you don't want to change it") %>)</i>
+          <%= f.password_field :password, autocomplete: "off", class: 'form-control' %>
+        </div>
+        <div class="form-group">
+          <%= f.label :password_confirmation %>
+          <%= f.password_field :password_confirmation, class: 'form-control'  %>
+        </div>
+        <div class="form-group">
+          <%= f.label :current_password %> <i>(<%= t('.we_need_your_current_password_to_confirm_your_changes', default: 'we need your current password to confirm your changes') %>)</i>
+          <%= f.password_field :current_password, class: 'form-control' %>
+        </div>
+      <% end %>
       <%= f.submit t('.update', default: 'Update'), class: 'btn btn-primary' %>
     <% end %>
   </div>

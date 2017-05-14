@@ -39,9 +39,14 @@ gem 'jbuilder', '~> 2.5'
 
 gem 'bootstrap-sass', '~> 3.3.6'
 
+# devise - Gerador de login automatico
 gem 'devise'
 gem 'devise-i18n'
 gem 'devise-bootstrap-views'
+
+# Omniauth para login com facebook
+gem 'omniauth'
+gem 'omniauth-facebook'
 
 group :test do
   gem 'shoulda-matchers', '~> 3.0'
