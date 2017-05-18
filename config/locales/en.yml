@@ -27,4 +27,4 @@ en:
               user:
                 attributes:
                   password:
-                    too_short: "must have at least %{count} caracteres"
+                    too_short: "must have at least %{count} characters"
