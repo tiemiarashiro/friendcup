@@ -21,3 +21,10 @@
 
 en:
   hello: "Hello world"
+  activerecord:
+        errors:
+            models:
+              user:
+                attributes:
+                  password:
+                    too_short: "must have at least %{count} caracteres"

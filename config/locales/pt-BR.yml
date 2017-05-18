@@ -1,2 +1,9 @@
 pt-BR:
     hello: Olá Mundo
+    activerecord:
+        errors:
+            models:
+              user:
+                attributes:
+                  password:
+                    too_short: "deve conter ao menos %{count} caracteres"
