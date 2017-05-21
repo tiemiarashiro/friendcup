@@ -26,10 +26,14 @@ Rails.application.configure do
     config.cache_store = :null_store
   end
 
+config.i18n.default_locale = :"pt-BR"
+
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
 
   config.action_mailer.perform_caching = false
+  
+  config.action_mailer.default_url_options = { host: 'localhost', port: 8080 }
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log

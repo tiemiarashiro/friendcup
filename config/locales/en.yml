@@ -12,7 +12,7 @@
 #
 # To use a different locale, set it with `I18n.locale`:
 #
-#     I18n.locale = :es
+# I18n.locale = :pt-BR
 #
 # This would use the information in config/locales/es.yml.
 #
@@ -21,3 +21,10 @@
 
 en:
   hello: "Hello world"
+  activerecord:
+        errors:
+            models:
+              user:
+                attributes:
+                  password:
+                    too_short: "must have at least %{count} characters"
