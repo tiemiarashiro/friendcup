@@ -1,0 +1,25 @@
+development:
+  adapter: postgresql
+  database: friendcup
+  encoding: SQL_ASCII
+  pool: 5
+  username: ubuntu
+  password: ubuntu
+
+test:
+  adapter: postgresql
+  database: friendcup_test
+  encoding: SQL_ASCII
+  pool: 5
+  username: ubuntu
+  password: ubuntu
+
+production:
+    adapter: postgresql
+    database: d28fk2vitb7s41
+    host: ec2-54-235-181-120.compute-1.amazonaws.com
+    encoding: SQL_ASCII
+    pool: 5
+    username: ooikdarohkwqjv
+    password: 9a26d60add524504838c4e2853de26fca9a0afedd894d5e9010d298fd8592f10
+    url: postgres://ooikdarohkwqjv:9a26d60add524504838c4e2853de26fca9a0afedd894d5e9010d298fd8592f10@ec2-54-235-181-120.compute-1.amazonaws.com:5432/d28fk2vitb7s41
