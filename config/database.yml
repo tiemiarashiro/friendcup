@@ -1,18 +1,18 @@
 development:
   adapter: postgresql
   database: friendcup
-  encoding: SQL_ASCII
+  encoding: UTF8
   pool: 5
-  username: ubuntu
-  password: ubuntu
+  username: tiemi
+  password: pgpass
 
 test:
   adapter: postgresql
   database: friendcup_test
-  encoding: SQL_ASCII
+  encoding: UTF8
   pool: 5
-  username: ubuntu
-  password: ubuntu
+  username: tiemi
+  password: pgpass
 
 production:
     adapter: postgresql
