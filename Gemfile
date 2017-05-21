@@ -48,6 +48,10 @@ gem 'devise-bootstrap-views'
 gem 'omniauth'
 gem 'omniauth-facebook'
 
+gem 'simple_form'
+
+gem 'rails-i18n'
+
 group :test do
   gem 'shoulda-matchers', '~> 3.0'
   gem 'capybara'
