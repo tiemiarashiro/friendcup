@@ -28,3 +28,7 @@ en:
                 attributes:
                   password:
                     too_short: "must have at least %{count} characters"
+                  current_password:
+                    invalid: "invalid"
+                  password_confirmation:
+                    confirmation: "- The informed passwords are different"
