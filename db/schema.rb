@@ -10,10 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170521201609) do
+ActiveRecord::Schema.define(version: 20170601211842) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "championship_types", force: :cascade do |t|
+    t.string   "title"
+    t.string   "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
 
   create_table "championships", force: :cascade do |t|
     t.string  "name"
@@ -21,6 +28,8 @@ ActiveRecord::Schema.define(version: 20170521201609) do
     t.integer "user_id"
     t.date    "starts_at"
     t.date    "ends_at"
+    t.integer "championship_type_id"
+    t.index ["championship_type_id"], name: "index_championships_on_championship_type_id", using: :btree
     t.index ["user_id"], name: "index_championships_on_user_id", using: :btree
   end
 
@@ -45,4 +54,5 @@ ActiveRecord::Schema.define(version: 20170521201609) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "championships", "championship_types"
 end

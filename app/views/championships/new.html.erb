@@ -3,5 +3,6 @@
   <%= form.input :game %>
   <%= form.input :starts_at %>
   <%= form.input :ends_at %>
+  <%= form.association :championship_type, label_method: :title, value_method: :id, include_blank: false %>
   <%= form.button :submit %>
 <% end %>

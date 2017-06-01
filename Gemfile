@@ -52,6 +52,9 @@ gem 'simple_form'
 
 gem 'rails-i18n'
 
+#Para evitar bug de encoding
+gem 'string-scrub'
+
 group :test do
   gem 'shoulda-matchers', '~> 3.0'
   gem 'capybara'

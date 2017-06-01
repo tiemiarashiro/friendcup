@@ -29,6 +29,7 @@
             <ul class="nav navbar-nav" id="menu-navbar">
               <li class="<%=active_for('homes')%>"><a href="#">Home</a></li>
               <li class="<%=active_for('championships')%>"><a href="#about">Campeonatos</a></li>
+              <li><%= link_to 'Criar campeonato', new_championship_path %></li>
             </ul>
           <% end %>
 

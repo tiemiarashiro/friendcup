@@ -26,7 +26,7 @@ class ChampionshipsController < ApplicationController
   private
 
     def permitted_params
-      params.require(:championship).permit(:name, :game, :starts_at, :ends_at)
+      params.require(:championship).permit(:name, :game, :starts_at, :ends_at, :championship_type_id)
     end
 
 end
