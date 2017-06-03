@@ -7,3 +7,7 @@ pt-BR:
                 attributes:
                   password:
                     too_short: "deve conter ao menos %{count} caracteres"
+                  current_password:
+                    invalid: "incorreta"
+                  password_confirmation:
+                    confirmation: "- As senhas informadas não conferem"
