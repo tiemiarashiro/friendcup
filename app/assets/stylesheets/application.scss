@@ -25,6 +25,7 @@
   background-color: $base_color;
   border: 0;
   color: #FFFFFF;
+  margin-bottom:0;
   div ul li.active {
     background-color: #FFFFFF;
     a {
@@ -47,4 +48,35 @@
     font-weight: bold;
     font-size: 18px;
   }
+}
+.container-home{
+  background-color:#FFFBD0;
+  overflow:hidden;
+  position:fixed;
+  height:100%;
+  width:100%;
+}
+.inside-title{
+  margin: auto;
+  color: #8A0108;
+  text-align:left;
+  width:100%;
+  margin:3% 0 0 10%;
+  display:inline-block;
+}
+.inside-title h4{
+  margin: 0;
+  font-size:36px;
+  font-family:Arial;
+  font-weight:bold;
+  color:#C6642F;
+}
+
+input.btn.btn-primary{
+ background-color:#C6642F;
+ border-color:#C6642F;
+}
+
+.panel-body-inscreve{
+  width:40%;
 }

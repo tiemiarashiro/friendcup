@@ -1,7 +1,7 @@
-<div class="panel panel-default devise-bs">
-  <div class="panel-heading">
-    <h4><%= t('.sign_in', default: 'Sign in') %></h4>
-  </div>
+<div class= "inside-title">
+  <h4 ><%= t('.sign_up', default: 'Sign up') %></h4>
+</div>
+<div class="panel panel-default devise-bs" style="width:40%;margin: 2% auto;">
   <div class="panel-body">
     <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { role: 'form' }) do |f| %>
       <div class="form-group">
