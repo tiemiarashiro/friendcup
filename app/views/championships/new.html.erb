@@ -1,8 +1,16 @@
 <%= simple_form_for(@championship) do |form| %>
+
+<legend>Detalhes do campeonato</legend>
+
   <%= form.input :name %>
   <%= form.input :game %>
   <%= form.input :starts_at %>
   <%= form.input :ends_at %>
   <%= form.association :championship_type, label_method: :title, value_method: :id, include_blank: false %>
+  
+  <legend>Adicione os participantes</legend>
+  
+  <%= form.association :users, label_method: :name, value_method: :id, include_blank: false %>
+  
   <%= form.button :submit %>
 <% end %>

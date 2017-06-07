@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170601211842) do
+ActiveRecord::Schema.define(version: 20170603030124) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,15 @@ ActiveRecord::Schema.define(version: 20170601211842) do
     t.integer "championship_type_id"
     t.index ["championship_type_id"], name: "index_championships_on_championship_type_id", using: :btree
     t.index ["user_id"], name: "index_championships_on_user_id", using: :btree
+  end
+
+  create_table "participants", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "championship_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["championship_id"], name: "index_participants_on_championship_id", using: :btree
+    t.index ["user_id"], name: "index_participants_on_user_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
@@ -55,4 +64,6 @@ ActiveRecord::Schema.define(version: 20170601211842) do
   end
 
   add_foreign_key "championships", "championship_types"
+  add_foreign_key "participants", "championships"
+  add_foreign_key "participants", "users"
 end

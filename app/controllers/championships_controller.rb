@@ -12,7 +12,15 @@ class ChampionshipsController < ApplicationController
     attributes = permitted_params
     attributes[:user] = current_user
     @championship = Championship.new(attributes)
+      
     if(@championship.save)
+      
+      #Salvar os participantes
+      params[:championship][:user_ids].each do |participante|
+        part = Participant.new(championship_id: @championship.id, user_id: participante)
+        part.save
+      end
+      
       redirect_to @championship
     else
       render :new
@@ -26,7 +34,7 @@ class ChampionshipsController < ApplicationController
   private
 
     def permitted_params
-      params.require(:championship).permit(:name, :game, :starts_at, :ends_at, :championship_type_id)
+      params.require(:championship).permit(:name, :game, :starts_at, :ends_at, :championship_type_id, :user_ids)
     end
 
 end
