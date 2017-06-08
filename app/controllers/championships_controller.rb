@@ -1,4 +1,6 @@
 class ChampionshipsController < ApplicationController
+  
+  @id_pontos_corridos = 2 #definir qual ID eh o de pontos corridos
 
   def index
     @championships = current_user.championships
@@ -15,11 +17,23 @@ class ChampionshipsController < ApplicationController
       
     if(@championship.save)
       
+      participantes = Array.new
+      
       #Salvar os participantes
       params[:championship][:user_ids].each do |participante|
         part = Participant.new(championship_id: @championship.id, user_id: participante)
         part.save
+        participantes << part
       end
+      
+      #Falta fazer o if do tipo de campeonato
+      for i in (1..participantes.size-2)
+        for j in (i+1..participantes.size-1)
+          partida = PontoscorridosPartida.new(championship_id: @championship.id, player1: participantes[i].user_id, player2: participantes[j].user_id, score_player1: 0, score_player2: 0, finished: false)
+          partida.save
+        end
+      end
+      
       
       redirect_to @championship
     else
