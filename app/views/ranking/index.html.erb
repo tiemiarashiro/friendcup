@@ -1,2 +1,36 @@
-<h1>Ranking#index</h1>
-<p>Find me in app/views/ranking/index.html.erb</p>
+<legend>Ranking</legend>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Usuário</th>
+            <th class="text-center">Jogos</th>
+            <th class="text-center">Vitórias</th>
+            <th class="text-center">Empates</th>
+            <th class="text-center">Derrotas</th>
+            <th class="text-center">Campeonatos<br>vencidos</th>
+            <th class="text-center">Pontos</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @Ranking.each do |rank| %>
+            <% link_photo = rank.user.link_photo %>
+            <% 
+            if link_photo == nil
+                link_photo = 'old_logo.png'
+            end
+            %>
+            <tr>
+                <td><%= rank.position %></td>
+                <td><%= image_tag(link_photo, width: "35px", height: "35px", class: "img-circle") %> &nbsp; <%= rank.user.name %></td>
+                <td class="text-center"><%= rank.played_games %></td>
+                <td class="text-center"><%= rank.victories %></td>
+                <td class="text-center"><%= rank.draws %></td>
+                <td class="text-center"><%= rank.defeats %></td>
+                <td class="text-center"><%= rank.wins %></td>
+                <td class="text-center"><%= rank.points %></td>
+            </tr>
+        <% end %>
+    </tbody>
+</table>

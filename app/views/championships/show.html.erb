@@ -9,6 +9,11 @@
             <strong>Jogo: </strong> <%= @championship.game %><br>
             <strong>Período: </strong> <%= @championship.starts_at.strftime("%d/%m/%Y") %> a <%= @championship.ends_at.strftime("%d/%m/%Y") %><br>
             <strong>Tipo de campeonato: </strong> <%= @championship.championship_type.title %>
+            <% if @championship.winner != nil %>
+                <br>
+                <hr>
+                <strong>Vencedor: </strong> <%= User.find_by_id(@championship.winner).name %>
+            <% end %>
         </p>
         
         <div class="panel panel-default">
@@ -51,3 +56,7 @@
     </div>
 
 </div>
+
+<%= link_to championships_path, class: "btn btn-warning" do %>
+    <i class="glyphicon glyphicon-menu-left"></i> Voltar
+<% end %>
