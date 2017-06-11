@@ -2,15 +2,15 @@
 
 <legend>Detalhes do campeonato</legend>
 
-  <%= form.input :name %>
-  <%= form.input :game %>
-  <%= form.input :starts_at %>
-  <%= form.input :ends_at %>
-  <%= form.association :championship_type, label_method: :title, value_method: :id, include_blank: false %>
+  <%= form.input :name, label: t('.name', default: "Nome do campeonato"), required: true %>
+  <%= form.input :game, label: t('.game', default: "Jogo"), placeholder: "Futebol, xadrez, damas...", required: true %>
+  <%= form.input :starts_at, label: t('.starts_at', default: "Data de início"), required: true %>
+  <%= form.input :ends_at, label: t('.ends_at', default: "Data de término"), required: true %>
+  <%= form.association :championship_type, label_method: :title, value_method: :id, include_blank: false, label: t('.championship_type', default: "Tipo de Campeonato") %>
   
   <legend>Adicione os participantes</legend>
   
-  <%= form.association :users, label_method: :name, value_method: :id, include_blank: false %>
+  <%= form.association :users, label_method: :name, value_method: :id, include_blank: false, label: t('.participants', default: "Participantes") %>
   
-  <%= form.button :submit %>
+  <%= form.button :submit, label: t('.submit', default: "Criar campeonato"), class: 'btn btn-warning' %>
 <% end %>

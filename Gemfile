@@ -38,6 +38,7 @@ gem 'jbuilder', '~> 2.5'
 # gem 'capistrano-rails', group: :development
 
 gem 'bootstrap-sass', '~> 3.3.6'
+gem "font-awesome-rails"
 
 # devise - Gerador de login automatico
 gem 'devise'

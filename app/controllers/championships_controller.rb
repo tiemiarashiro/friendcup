@@ -3,7 +3,21 @@ class ChampionshipsController < ApplicationController
   @id_pontos_corridos = 2 #definir qual ID eh o de pontos corridos
 
   def index
-    @championships = current_user.championships
+    @championships = Array.new
+    
+    participam = Participant.where(user_id: current_user.id)
+    
+    participam.each do |relacao|
+      
+      if relacao.championship.user_id != current_user.id
+        @championships << relacao.championship
+      end
+      
+    end
+    
+    #Informacoes de Ranking
+    @rank = current_user.ranking
+    
   end
 
   def new
@@ -43,6 +57,7 @@ class ChampionshipsController < ApplicationController
 
   def show
     @championship = Championship.find(params[:id])
+    @participants = @championship.participants
   end
 
   private

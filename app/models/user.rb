@@ -4,7 +4,8 @@ class User < ApplicationRecord
 
   has_many :championships
   has_many :participants
-  has_many :championships, through: :participants
+  has_many :championship_ids, through: :participants, foreign_key: "championship_id", class_name: "Championship"
+  has_one :ranking
   
   accepts_nested_attributes_for :participants
 

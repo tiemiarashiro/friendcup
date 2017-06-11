@@ -1,0 +1,53 @@
+<div class="row">
+
+    <div class="col-md-5">
+        <legend>
+            <%= @championship.name %>
+        </legend>
+        
+        <p>
+            <strong>Jogo: </strong> <%= @championship.game %><br>
+            <strong>Período: </strong> <%= @championship.starts_at.strftime("%d/%m/%Y") %> a <%= @championship.ends_at.strftime("%d/%m/%Y") %><br>
+            <strong>Tipo de campeonato: </strong> <%= @championship.championship_type.title %>
+        </p>
+        
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2 class="panel-title">Participantes</h2>
+            </div>
+            
+            <div class="panel-body">
+                <table class="table table-hover">
+                    <tbody>
+                        <% @participants.each do |participante| %>
+                            <tr>
+                                <% img_link = participante.user.link_photo %>
+                                
+                                <% if img_link == nil %>
+                                    <% img_link = 'old_logo.png' %>
+                                <% end %>
+                                
+                                <td><%= image_tag(img_link, width: "35px", height: "35px", class: "img-circle") %> &nbsp; <%= participante.user.name %></td>
+                            </tr>
+                        <% end %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+    </div>
+
+    <div class="col-md-7">
+        
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2 class="panel-title">Resultados</h2>
+            </div>
+            <div class="panel-body">
+                <small>Aqui deve ser possível cadastrar os resultados das partidas</small>
+            </div>
+        </div>
+        
+    </div>
+
+</div>
