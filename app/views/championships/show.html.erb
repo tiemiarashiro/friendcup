@@ -56,6 +56,24 @@
     </div>
 
 </div>
+<div>
+    <% if @games_unfinished != nil and @games_unfinished.size != 0 %>
+        <div class="col-md-7">
+        
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2 class="panel-title">Partidas não realizadas</h2>
+            </div>
+            <div class="panel-body">
+                <% @games_unfinished.each do |game| %>
+                    <%= User.find_by_id(Participant.find_by_id(game.player1).user_id).name + " x " + User.find_by_id(Participant.find_by_id(game.player2).user_id).name %><br>
+                <% end %>
+            </div>
+        </div>
+        
+    </div>
+    <% end %>
+</div>
 
 <%= link_to championships_path, class: "btn btn-warning" do %>
     <i class="glyphicon glyphicon-menu-left"></i> Voltar

@@ -1,6 +1,6 @@
 class ChampionshipsController < ApplicationController
   
-  @id_pontos_corridos = 2 #definir qual ID eh o de pontos corridos
+  @id_pontos_corridos = 1 #definir qual ID eh o de pontos corridos
 
   def index
     @championships = Array.new
@@ -58,6 +58,8 @@ class ChampionshipsController < ApplicationController
   def show
     @championship = Championship.find(params[:id])
     @participants = @championship.participants
+    @games_unfinished = PontoscorridosPartida.where(championship_id: @championship.id, finished: false)
+    @games_finished = PontoscorridosPartida.where(championship_id: @championship.id, finished: true)
   end
 
   private
