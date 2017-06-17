@@ -21,6 +21,7 @@
 @import "bootstrap";
 @import "colors";
 @import "font-awesome";
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300ita‌​lic,400italic,500,500italic,700,700italic,900italic,900);
 
 .navbar {
   border-radius: 0;
@@ -55,3 +56,83 @@
     font-size: 18px;
   }
 }
+.homediv {
+ width: 100%;
+ //height: 100%;
+}
+
+.blocohomediv {
+ float: left;
+ width: 33.33%;
+ height: 100%;
+}
+
+.homebotaoBranco {
+ width: 40%;
+ height: 50px;
+ font-family: 'Cabin';
+ float: left;
+ margin-left:8%;
+ background-color: transparent;
+ border: 1px solid #FFFFFF;
+ border-radius: 30px;
+ font-size: 22px;
+ line-height:200%;
+ transition: all 0.3s ease;
+ text-decoration: none;
+ 
+}
+
+.homebotaoBranco p 
+{
+  color: #FFFFFF;
+  text-align:center;
+
+}
+.homebotaoBranco:hover p 
+{
+  color: #333333;
+  text-align:center;
+  font-size: 28px;
+  text-decoration: none;
+  margin-top:3px;
+}
+.homebotaoBranco:hover {
+ background-color: #FFFFFF;
+ color: #333333;
+ text-decoration: none;
+}
+
+#entrar-banner-bloco-home {
+ margin-left: 20%;
+}
+
+#imaghomediv {
+ background-image: url("/assets/CampeonatoHome.jpg");
+ background-position: center;
+ background-repeat: no-repeat;
+ background-size:cover;
+}
+
+#pretohomediv {
+ background-color: rgba(0, 0, 0, 0.7);
+}
+
+#conteudoblocohomediv {
+ margin-top: 200px;
+ color: #FFFFFF;
+}
+
+#tituloblocohomediv {
+ text-align: center;
+ font-family: Roboto;
+ font-size: 50px;
+ margin: 0px;
+ padding: 0px;
+}
+
+
+
+
+
+
