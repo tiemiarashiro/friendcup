@@ -48,8 +48,43 @@
             <div class="panel-heading">
                 <h2 class="panel-title">Resultados</h2>
             </div>
-            <div class="panel-body">
-                <small>Aqui deve ser possível cadastrar os resultados das partidas</small>
+            <div class="panel-body text-center">
+                
+                
+                
+                <% if @championship.championship_type_id == id_pontos_corridos %>
+                
+                    <%= form_tag(:controller => "championships", :action => "atualizar_partidas") do %>
+                
+                        <% @championship.pontoscorridos_partidas.each do |partida| %>
+                    
+                            <% if partida.finished == true %>
+                                <p>
+                                    <%=User.find_by_id(partida.player1).name%> &nbsp;
+                                    <%= number_field_tag("[score_player1]["+partida.id.to_s+"]", partida.score_player1,  max: 99, min: 0 ) %> &nbsp;
+                                    X &nbsp;
+                                    <%= number_field_tag("[score_player2]["+partida.id.to_s+"]", partida.score_player2, max: 99, min: 0) %> &nbsp;
+                                    <%=User.find_by_id(partida.player2).name%> &nbsp; 
+                                </p>
+                            <% end %>
+                            
+                            <% if partida.finished == false %>
+                                <p>
+                                    <%=User.find_by_id(partida.player1).name%> &nbsp;
+                                    <%= number_field_tag("[score_player1]["+partida.id.to_s+"]", nil,  max: 99, min: 0 ) %> &nbsp;
+                                    X &nbsp;
+                                    <%= number_field_tag("[score_player2]["+partida.id.to_s+"]", nil, max: 99, min: 0) %> &nbsp;
+                                    <%=User.find_by_id(partida.player2).name%> &nbsp; 
+                                </p>
+                            <% end %>
+                        <% end %>
+                        
+                        <%= submit_tag("Atualizar Resultados", class: "btn btn-warning") %>
+                        
+                    <% end %>    
+                <% end %>
+                
+                
             </div>
         </div>
         

@@ -1,6 +1,12 @@
 class ChampionshipsController < ApplicationController
   
-  @id_pontos_corridos = 1 #definir qual ID eh o de pontos corridos
+  @@id_pontos_corridos = 1 #definir qual ID eh o de pontos corridos
+  
+  helper_method :id_pontos_corridos
+  
+  def id_pontos_corridos
+    @@id_pontos_corridos
+  end
 
   def index
     @championships = Array.new
@@ -41,11 +47,18 @@ class ChampionshipsController < ApplicationController
       end
       
       #Falta fazer o if do tipo de campeonato
-      for i in (1..participantes.size-2)
-        for j in (i+1..participantes.size-1)
-          partida = PontoscorridosPartida.new(championship_id: @championship.id, player1: participantes[i].user_id, player2: participantes[j].user_id, score_player1: 0, score_player2: 0, finished: false)
-          partida.save
+      puts "TESTE" + @championship.championship_type_id.to_s
+      puts "TESTE2" + @id_pontos_corridos.to_s
+      if @championship.championship_type_id == @@id_pontos_corridos
+        for i in (1..participantes.size-2)
+          for j in (i+1..participantes.size-1)
+            partida = PontoscorridosPartida.new(championship_id: @championship.id, player1: participantes[i].user_id, player2: participantes[j].user_id, score_player1: 0, score_player2: 0, finished: false)
+            partida.save
+          end
         end
+      
+      else
+        #Implementar caso de mata-mata
       end
       
       
@@ -60,6 +73,28 @@ class ChampionshipsController < ApplicationController
     @participants = @championship.participants
     @games_unfinished = PontoscorridosPartida.where(championship_id: @championship.id, finished: false)
     @games_finished = PontoscorridosPartida.where(championship_id: @championship.id, finished: true)
+  end
+  
+  def atualizar_partidas
+    
+    params[:score_player1].each do |k,v|
+      if v != ""
+        partida = PontoscorridosPartida.find_by_id(k)
+        partida.score_player1 = v
+        partida.finished = true
+        partida.save
+      end
+    end
+    
+    params[:score_player2].each do |k,v|
+      if v != ""
+        partida = PontoscorridosPartida.find_by_id(k)
+        partida.score_player2 = v
+        partida.finished = true
+        partida.save
+      end
+    end
+    
   end
 
   private
