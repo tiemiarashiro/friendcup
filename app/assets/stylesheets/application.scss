@@ -60,13 +60,21 @@
  width: 100%;
  //height: 100%;
 }
-
+.form-control:focus {
+  border-color: #C6642F;
+  box-shadow: inset 0 1px 1px rgba(198, 100, 47, 0.075), 0 0 8px rgba(	198, 100, 47, 0.9);
+}
 .blocohomediv {
  float: left;
  width: 33.33%;
  height: 100%;
 }
-
+.homediv h4{
+  color:#FFFFFF;
+  font-size:44px;
+  margin-left:8%;
+  margin-top:3%;
+}
 .homebotaoBranco {
  width: 40%;
  height: 50px;
@@ -113,7 +121,22 @@
  background-repeat: no-repeat;
  background-size:cover;
 }
-
+#panel_increver{
+  position:relative;
+  top:8%;
+  width:70%;
+  margin:auto;
+  border-color:#C6642F;
+}
+.btn-orange{
+  border-color:#C6642F;
+  background:#C6642F;
+}
+.btn-orange:hover{
+  border-color: #c6612f;
+  background-color: #c16f3c;
+  box-shadow: inset 0 2px 2px rgba(198, 100, 47, 0.075), 0 0 8px rgba(	198, 100, 47, 0.9);
+}
 #pretohomediv {
  background-color: rgba(0, 0, 0, 0.7);
 }
@@ -130,8 +153,15 @@
  margin: 0px;
  padding: 0px;
 }
-
-
+.link_refenderhome{
+  width:100%;
+  display:inline-block; 
+  text-align:center; 
+  color:#FFFFFF;
+}
+.link_refenderhome a {
+  color:#FFFFFF;
+}
 
 
 
