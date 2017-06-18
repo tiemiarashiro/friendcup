@@ -12,7 +12,7 @@ namespace :ranking do
     Championship.all.each do |campeonato|
       if ((campeonato.winner != 0) and (campeonato.winner != nil))
         #Se nao tiver no hash, incluir
-        if h.fetch(campeonato.winner) == nil
+        if h.has_key?(campeonato.winner) == false
           h[campeonato.winner] = 1
         else
           h[campeonato.winner] = h[campeonato.winner] + 1
@@ -37,43 +37,62 @@ namespace :ranking do
       derrotas = 0
       pontos = 0
       
-      gerPartida = Array.new
-      gerPartida << partidas_p1
-      gerPartida << partidas_p2
-      
       if h.has_key?(usuario.id)
         campeonatos_vencidos = h[usuario.id]
       end
       
-      #Gerenciador de Partidas
-      gerPartida.each do |gPartida|
-        gPartida.each do |partida|
+      partidas_p1.each do |partida|
+        
+        if partida.finished
+          #Incrementar o contador de partidas jogadas
+          partidas_jogadas = partidas_jogadas + 1
           
-          if partida.finished
-            #Incrementar o contador de partidas jogadas
-            partidas_jogadas = partidas_jogadas + 1
-            
-            #Metricas
-            if partida.score_player1 > partida.score_player2
-              vitorias = vitorias + 1
-            end
-          
-            if partida.score_player1 == partida.score_player2
-              empates = empates + 1
-            end
-            
-            if partida.score_player1 < partida.score_player2
-              derrotas = derrotas + 1
-            end
-            
-          else
-            #Partidas programadas
-            partidas_programadas = partidas_programadas + 1
+          #Metricas
+          if partida.score_player1 > partida.score_player2
+            vitorias = vitorias + 1
+          end
+        
+          if partida.score_player1 == partida.score_player2
+            empates = empates + 1
           end
           
+          if partida.score_player1 < partida.score_player2
+            derrotas = derrotas + 1
+          end
+          
+        else
+          #Partidas programadas
+          partidas_programadas = partidas_programadas + 1
         end
         
       end
+      
+      partidas_p2.each do |partida|
+        
+        if partida.finished
+          #Incrementar o contador de partidas jogadas
+          partidas_jogadas = partidas_jogadas + 1
+          
+          #Metricas
+          if partida.score_player2 > partida.score_player1
+            vitorias = vitorias + 1
+          end
+        
+          if partida.score_player2 == partida.score_player1
+            empates = empates + 1
+          end
+          
+          if partida.score_player2 < partida.score_player1
+            derrotas = derrotas + 1
+          end
+          
+        else
+          #Partidas programadas
+          partidas_programadas = partidas_programadas + 1
+        end
+        
+      end
+        
       #Fim Gerenciador de partidas
       pontos = campeonatos_vencidos*100 + partidas_jogadas*1 + vitorias*10 + empates*3
       

@@ -1,6 +1,7 @@
 <div class="row">
 
     <div class="col-md-5">
+        
         <legend>
             <%= @championship.name %>
         </legend>
@@ -9,7 +10,11 @@
             <strong>Jogo: </strong> <%= @championship.game %><br>
             <strong>Período: </strong> <%= @championship.starts_at.strftime("%d/%m/%Y") %> a <%= @championship.ends_at.strftime("%d/%m/%Y") %><br>
             <strong>Tipo de campeonato: </strong> <%= @championship.championship_type.title %>
-            <% if @championship.winner != nil %>
+            <% 
+            finished = false
+            if @championship.winner != nil 
+                finished = true
+            %>
                 <br>
                 <hr>
                 <strong>Vencedor: </strong> <%= User.find_by_id(@championship.winner).name %>
@@ -40,6 +45,16 @@
             </div>
         </div>
         
+        <%= link_to championships_path, class: "btn btn-warning" do %>
+            <i class="glyphicon glyphicon-menu-left"></i> Voltar
+        <% end %>
+        
+        <% if finished == false %>
+            <%= link_to championship_finish_path, class: "btn btn-warning", :method => :post do %>
+                <i class="glyphicon glyphicon-king"></i> Encerrar campeonato
+            <% end %>
+        <% end %>
+        
     </div>
 
     <div class="col-md-7">
@@ -48,49 +63,16 @@
             <div class="panel-heading">
                 <h2 class="panel-title">Resultados</h2>
             </div>
-            <div class="panel-body text-center">
-                
-                
-                
-                <% if @championship.championship_type_id == id_pontos_corridos %>
-                
-                    <%= form_tag(:controller => "championships", :action => "atualizar_partidas") do %>
-                
-                        <% @championship.pontoscorridos_partidas.each do |partida| %>
-                    
-                            <% if partida.finished == true %>
-                                <p>
-                                    <%=User.find_by_id(partida.player1).name%> &nbsp;
-                                    <%= number_field_tag("[score_player1]["+partida.id.to_s+"]", partida.score_player1,  max: 99, min: 0 ) %> &nbsp;
-                                    X &nbsp;
-                                    <%= number_field_tag("[score_player2]["+partida.id.to_s+"]", partida.score_player2, max: 99, min: 0) %> &nbsp;
-                                    <%=User.find_by_id(partida.player2).name%> &nbsp; 
-                                </p>
-                            <% end %>
-                            
-                            <% if partida.finished == false %>
-                                <p>
-                                    <%=User.find_by_id(partida.player1).name%> &nbsp;
-                                    <%= number_field_tag("[score_player1]["+partida.id.to_s+"]", nil,  max: 99, min: 0 ) %> &nbsp;
-                                    X &nbsp;
-                                    <%= number_field_tag("[score_player2]["+partida.id.to_s+"]", nil, max: 99, min: 0) %> &nbsp;
-                                    <%=User.find_by_id(partida.player2).name%> &nbsp; 
-                                </p>
-                            <% end %>
-                        <% end %>
-                        
-                        <%= submit_tag("Atualizar Resultados", class: "btn btn-warning") %>
-                        
-                    <% end %>    
-                <% end %>
-                
-                
+            <div class="panel-body" id="partidas">
+                <%= render partial: 'atualizar_partidas', locals: {campeonato: @championship, finished: (@championship.winner!=nil)} %>
             </div>
         </div>
         
     </div>
 
 </div>
+
+<!--CAIO: CODIGO COMENTADO PORQUE O DE CIMA JA SUPRE ESSA NECESSIDADE
 <div>
     <% if @games_unfinished != nil and @games_unfinished.size != 0 %>
         <div class="col-md-7">
@@ -108,8 +90,4 @@
         
     </div>
     <% end %>
-</div>
-
-<%= link_to championships_path, class: "btn btn-warning" do %>
-    <i class="glyphicon glyphicon-menu-left"></i> Voltar
-<% end %>
+</div>-->

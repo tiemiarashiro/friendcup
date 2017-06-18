@@ -20,11 +20,19 @@
 							<div class="blocohomediv" style="width:20%"></div>
 							<div class="blocohomediv" style="width:60%">
 								<div id="conteudoblocohomediv">
-									<p id="tituloblocohomediv" style = "font-family: 'Cabin'; font-size:72px"> Bem Vindo ao FriendCup</p>
-									<br/>
-									<br/>
-									<a href="/users/sign_up"  class="homebotaoBranco"><p>Inscrever-se</p></a>
-									<a href="/users/sign_in" class="homebotaoBranco"><p>Entrar</p></a>
+									<% if current_user == nil %>
+										<p id="tituloblocohomediv" style = "font-family: 'Cabin'; font-size:72px"> Bem Vindo ao FriendCup</p>
+										<br/>
+										<br/>
+										<a href="/users/sign_up"  class="homebotaoBranco"><p>Inscrever-se</p></a>
+										<a href="/users/sign_in" class="homebotaoBranco"><p>Entrar</p></a>
+									<% else %>
+										<p id="tituloblocohomediv" style = "font-family: 'Cabin'; font-size:72px"> Você já está logado!</p>
+										<br/>
+										<br/>
+										<a href="/championships"  class="homebotaoBranco"><p>Campeonatos</p></a>
+										<a href="/ranking" class="homebotaoBranco"><p>Ranking</p></a>
+									<% end %>
 								</div>
 							</div>
 							<div class="blocohomediv" style="width:20%"></div>
