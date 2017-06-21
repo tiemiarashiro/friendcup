@@ -1,1 +1,1 @@
-$("#partidas").html("<%= escape_javascript(render partial: 'atualizar_partidas', locals: { campeonato: @championship, finished: (@championship.winner!=nil)} ) %>");
+$("#partidas").html("<%= escape_javascript(render partial: 'atualizar_partidas', locals: { championship: @championship } ) %>");

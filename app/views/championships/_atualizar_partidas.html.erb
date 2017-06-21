@@ -1,18 +1,14 @@
-<% if campeonato.championship_type_id == id_pontos_corridos %>
+<% if championship.championship_type_id == id_pontos_corridos %>
 
     <%= form_tag atualizar_partidas_path, :method => 'post', :id => "form_partidas", :remote => true do %>
 
         <%
-            #Criar um hash para os usuários
-            ranks = Array.new
-            
-            campeonato.participants.each do |participante|
-                r = Ranking.new(user_id: participante.user_id, played_games: 0, victories: 0, draws: 0, defeats: 0, points: 0)
-                ranks << r
+            ranks = championship.participants.map do |participante|
+                Ranking.new(user_id: participante.user_id, played_games: 0, victories: 0, draws: 0, defeats: 0, points: 0)
             end
         %>
 
-        <% campeonato.pontoscorridos_partidas.each do |partida| %>
+        <% championship.pontoscorridos_partidas.each do |partida| %>
         
         <div class="row padding-height">
         
@@ -64,7 +60,7 @@
             </span>
             <span class="col-md-4 nopadding text-center">
                 <%= image_tag(photo_p1, width: "35px", height: "35px", class: "img-circle") %>
-                <% if finished %>
+                <% if championship.finished? %>
                     <%= score_player1 %> &nbsp; <i class="glyphicon glyphicon-remove"></i> &nbsp; <%= score_player2 %>
                 <% else %>
                     <%= number_field_tag("[score_player1]["+partida.id.to_s+"]", score_player1,  max: 99, min: 0 ) %>
@@ -122,7 +118,7 @@
             </div>
         </div>
         
-        <% if finished == false %>
+        <% unless championship.finished? %>
             <div class="row padding-height text-center">
                 <div class="col-md-12">
                     <%= submit_tag("Atualizar Resultados", class: "btn btn-warning") %>

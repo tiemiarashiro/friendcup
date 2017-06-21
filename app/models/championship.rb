@@ -8,4 +8,9 @@ class Championship < ApplicationRecord
   
   accepts_nested_attributes_for :participants
   
+  
+  def finished?
+    self.winner.present?
+  end
+
 end

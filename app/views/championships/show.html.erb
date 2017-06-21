@@ -64,7 +64,7 @@
                 <h2 class="panel-title">Resultados</h2>
             </div>
             <div class="panel-body" id="partidas">
-                <%= render partial: 'atualizar_partidas', locals: {campeonato: @championship, finished: (@championship.winner!=nil)} %>
+                <%= render partial: 'atualizar_partidas', locals: {championship: @championship } %>
             </div>
         </div>
         
