@@ -7,8 +7,8 @@ class Championship < ApplicationRecord
   has_many :pontoscorridos_partidas
   
   accepts_nested_attributes_for :participants
-  
-  
+
+
   def finished?
     self.winner.present?
   end
