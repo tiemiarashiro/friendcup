@@ -23,7 +23,7 @@ describe 'Sign Up', type: :feature do
 
     first('input[type="submit"]').click
 
-    expect(page).to have_content("Welcome!")
+    expect(page).to have_content("Bem vindo!")
   end
 
   it 'should not sign up: password too short' do
@@ -41,7 +41,7 @@ describe 'Sign Up', type: :feature do
 
     first('input[type="submit"]').click
 
-    expect(page).to have_content("Password must have at least")
+    expect(page).to have_content("Senha deve conter ao menos 6 caracteres")
   end
 
 

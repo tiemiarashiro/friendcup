@@ -28,10 +28,6 @@ describe 'Home', type: :request do
   end
 
   context 'when the user is not logged' do
-    specify 'i can\'t access my home page' do
-      expect(current_path).not_to eq root_path
-    end
-
     specify 'the menu is invisible' do
       expect(page).not_to have_selector('#menu-navbar')
     end
