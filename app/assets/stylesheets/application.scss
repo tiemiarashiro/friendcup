@@ -19,9 +19,12 @@
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
-@import "colors";
 @import "font-awesome";
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300ita‌​lic,400italic,500,500italic,700,700italic,900italic,900);
+
+@import "colors";
+@import "brackets";
+@import "championships";
 
 .navbar {
   border-radius: 0;
@@ -98,16 +101,16 @@ padding-bottom: 5px;
  line-height:200%;
  transition: all 0.3s ease;
  text-decoration: none;
- 
+
 }
 
-.homebotaoBranco p 
+.homebotaoBranco p
 {
   color: #FFFFFF;
   text-align:center;
 
 }
-.homebotaoBranco:hover p 
+.homebotaoBranco:hover p
 {
   color: #333333;
   text-align:center;
@@ -165,14 +168,10 @@ padding-bottom: 5px;
 }
 .link_refenderhome{
   width:100%;
-  display:inline-block; 
-  text-align:center; 
+  display:inline-block;
+  text-align:center;
   color:#FFFFFF;
 }
 .link_refenderhome a {
   color:#FFFFFF;
 }
-
-
-
-
