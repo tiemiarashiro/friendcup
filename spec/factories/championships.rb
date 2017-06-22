@@ -1,6 +1,6 @@
 FactoryGirl.define do
-  factory :championship_type do
-    title "MyString"
-    description "MyString"
+  factory :championship do
+    association :user
+    association :championship_type
   end
 end

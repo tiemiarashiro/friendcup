@@ -1,0 +1,72 @@
+<div class="row">
+
+  <div class="col-md-6">
+
+    <legend>
+      <%= @championship.name %>
+    </legend>
+
+    <p>
+      <strong>Jogo: </strong> <%= @championship.game %><br>
+      <strong>Período: </strong> <%= @championship.starts_at.strftime("%d/%m/%Y") %> a <%= @championship.ends_at.strftime("%d/%m/%Y") %><br>
+      <strong>Tipo de campeonato: </strong> <%= @championship.championship_type.title %>
+      <% if @championship.finished? %>
+        <br>
+        <hr>
+        <strong>Vencedor: </strong> <%= User.find_by_id(@championship.winner).name %>
+        <% end %>
+      </p>
+
+    <p>
+      <%= link_to championships_path, class: "btn btn-warning" do %>
+      <i class="glyphicon glyphicon-menu-left"></i> Voltar
+      <% end %>
+
+      <% if !@championship.finished? %>
+      <%= link_to championship_finish_path, class: "btn btn-warning", :method => :post do %>
+      <i class="glyphicon glyphicon-king"></i> Encerrar campeonato
+      <% end %>
+      <% end %>
+    </p>
+
+    </div>
+
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h2 class="panel-title">Participantes</h2>
+        </div>
+
+        <div class="panel-body" style="max-height:120px; overflow-y:scroll;">
+          <table class="table table-hover" id="table-participants">
+            <tbody>
+              <% @participants.each do |participante| %>
+              <tr>
+                <% img_link = participante.user.link_photo %>
+
+                <% if img_link == nil %>
+                <% img_link = 'old_logo.png' %>
+                <% end %>
+
+                <td><%= image_tag(img_link, width: "35px", height: "35px", class: "img-circle") %> &nbsp; <%= participante.user.name %></td>
+              </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h2 class="panel-title">Chaves</h2>
+        </div>
+        <div class="panel-body" id="partidas">
+          <%= render partial: 'brackets', locals: {campeonato: @championship} %>
+        </div>
+      </div>
+    </div>
+  </div>

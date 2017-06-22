@@ -1,130 +1,49 @@
-<% if championship.championship_type_id == id_pontos_corridos %>
+<%= form_tag atualizar_partidas_path, :method => 'post', :id => "form_partidas", :remote => true do %>
 
-    <%= form_tag atualizar_partidas_path, :method => 'post', :id => "form_partidas", :remote => true do %>
+<% campeonato.pontoscorridos_partidas.each do |partida|
+  player1 = User.find_by_id(partida.player1)
+  player2 = User.find_by_id(partida.player2)
 
-        <%
-            ranks = championship.participants.map do |participante|
-                Ranking.new(user_id: participante.user_id, played_games: 0, victories: 0, draws: 0, defeats: 0, points: 0)
-            end
-        %>
+  photo_p1 = (player1.link_photo == nil) ? "old_logo.png" : player1.link_photo
+  photo_p2 = (player2.link_photo == nil) ? "old_logo.png" : player2.link_photo
 
-        <% championship.pontoscorridos_partidas.each do |partida| %>
-        
-        <div class="row padding-height">
-        
-            <% 
-            player1 = User.find_by_id(partida.player1)
-            player2 = User.find_by_id(partida.player2)
-            
-            photo_p1 = (player1.link_photo == nil) ? "old_logo.png" : player1.link_photo
-            photo_p2 = (player2.link_photo == nil) ? "old_logo.png" : player2.link_photo
-            
-            score_player1 = partida.finished ? partida.score_player1 : nil
-            score_player2 = partida.finished ? partida.score_player2 : nil
-            
-            if partida.finished
-                
-                p1 = ranks.find {|s| s.user_id == player1.id }
-                p2 = ranks.find {|t| t.user_id == player2.id }
-                
-                p1.played_games += 1
-                p2.played_games += 1
-                
-                if score_player1 > score_player2
-                    p1.points += 11
-                    p1.victories += 1
-                    p2.points += 1
-                    p2.defeats += 1
-                end
-                
-                if score_player2 > score_player1
-                    p2.points += 11
-                    p2.victories += 1
-                    p1.points += 1
-                    p1.defeats += 1
-                end
-                
-                if score_player1 == score_player2
-                    p1.points += 4
-                    p1.draws += 1
-                    p2.points += 4
-                    p2.draws += 1
-                end
-                
-            end
-            
-            %>
-    
-            <span class="col-md-4 nopadding text-right">
-                <%=player1.name%>
-            </span>
-            <span class="col-md-4 nopadding text-center">
-                <%= image_tag(photo_p1, width: "35px", height: "35px", class: "img-circle") %>
-                <% if championship.finished? %>
-                    <%= score_player1 %> &nbsp; <i class="glyphicon glyphicon-remove"></i> &nbsp; <%= score_player2 %>
-                <% else %>
-                    <%= number_field_tag("[score_player1]["+partida.id.to_s+"]", score_player1,  max: 99, min: 0 ) %>
-                    &nbsp;<i class="glyphicon glyphicon-remove"></i>&nbsp;
-                    <%= number_field_tag("[score_player2]["+partida.id.to_s+"]", score_player2, max: 99, min: 0) %>
-                <% end %>
-                <%= image_tag(photo_p2, width: "35px", height: "35px", class: "img-circle")%>
-            </span>
-            <span class="col-md-4 nopadding text-left">
-                <%=player2.name%>
-            </span>
-            
-        </div>
-        <% end %>
-        
-        <div class="row padding-height">
-            <div class="col-md-12">
-                <strong>Classificação parcial</strong>
-                
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>#</td>
-                            <th>Participante</td>
-                            <th class="text-center">J</td>
-                            <th class="text-center">V</td>
-                            <th class="text-center">E</td>
-                            <th class="text-center">D</td>
-                            <th class="text-center">Pontos</td>
-                        </tr>
-                    </thead>
-                    
-                    <tbody>
-                        <%
-                        ranks2 = ranks.sort_by {|obj| [obj.points * -1, obj.victories * -1, obj.draws * -1, obj.user_id]} 
-                        i = 1
-                        %>
-                        <% ranks2.each do |ranking| %>
-                        
-                            <tr>
-                                <td><%= i %></td>
-                                <td><%= ranking.user.name %></td>
-                                <td class="text-center"><%= ranking.played_games %></td>
-                                <td class="text-center"><%= ranking.victories %></td>
-                                <td class="text-center"><%= ranking.draws %></td>
-                                <td class="text-center"><%= ranking.defeats %></td>
-                                <td class="text-center"><%= ranking.points %></td>
-                            </tr>
-                        <% i+=1 %>
-                        <% end %>
-                    </tbody>
-                    
-                </table>
-                
-            </div>
-        </div>
-        
-        <% unless championship.finished? %>
-            <div class="row padding-height text-center">
-                <div class="col-md-12">
-                    <%= submit_tag("Atualizar Resultados", class: "btn btn-warning") %>
-                </div>
-            </div>
-        <% end %>
-        
-    <% end %>    
-<% end %>
+  score_player1 = partida.finished ? partida.score_player1 : nil
+  score_player2 = partida.finished ? partida.score_player2 : nil
+  %>
+
+  <div class="row">
+    <div class="col-md-3 text-right">
+      <%= image_tag(photo_p1, width: "35px", height: "35px", class: "img-circle") %>
+      <%= player1.name %>
+    </div>
+    <% if finished %>
+    <div class="col-md-6 text-center">
+      <%= score_player1 %> &nbsp; <i class="glyphicon glyphicon-remove"></i> &nbsp; <%= score_player2 %>
+    </div>
+    <% else %>
+    <div class="col-md-2 text-center">
+      <%= number_field_tag("[score_player1]["+partida.id.to_s+"]", score_player1,  max: 99, min: 0, class: "number-field") %>
+    </div>
+    <div class="col-md-1 text-center">
+      <i class="glyphicon glyphicon-remove"></i>
+    </div>
+    <div class="col-md-2 text-center">
+      <%= number_field_tag("[score_player2]["+partida.id.to_s+"]", score_player2, max: 99, min: 0, class: "number-field") %>
+    </div>
+    <% end %>
+    <div class="col-md-3 text-left">
+      <%= image_tag(photo_p2, width: "35px", height: "35px", class: "img-circle")%>
+      <%= player2.name %>
+    </div>
+
+  </div>
+  <% end %>
+  <% end %>
+
+  <% if finished == false %>
+  <div class="row padding-height text-center">
+    <div class="col-md-12">
+      <%= submit_tag("Atualizar Resultados", class: "btn btn-warning") %>
+    </div>
+  </div>
+  <% end %>
