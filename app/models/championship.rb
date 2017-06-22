@@ -5,6 +5,7 @@ class Championship < ApplicationRecord
   has_many :participants
   has_many :users, through: :participants
   has_many :pontoscorridos_partidas
+  has_many :brackets
 
   accepts_nested_attributes_for :participants
 
@@ -14,6 +15,16 @@ class Championship < ApplicationRecord
 
   def finished?
     self.winner.present?
+  end
+  
+  def full_loaded_final
+    all_brackets = brackets.to_a
+    
+    all_brackets.each do |bracket|
+      bracket.children = all_brackets.select { |b| b.parent_id == bracket.id}
+    end
+    
+    all_brackets.find { |bracket| bracket.parent_id.nil? }
   end
 
 end
