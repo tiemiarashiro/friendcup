@@ -6,7 +6,7 @@ class User < ApplicationRecord
   has_many :participants
   has_many :championship_ids, through: :participants, foreign_key: "championship_id", class_name: "Championship"
   has_one :ranking
-  
+
   accepts_nested_attributes_for :participants
 
   devise :database_authenticatable, :registerable,
@@ -22,6 +22,10 @@ class User < ApplicationRecord
       # uncomment the line below to skip the confirmation emails.
       # user.skip_confirmation!
     end
+  end
+
+  def link_photo
+    super || "old_logo.png"
   end
 
 end

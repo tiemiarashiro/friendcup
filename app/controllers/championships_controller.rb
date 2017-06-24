@@ -45,16 +45,16 @@ class ChampionshipsController < ApplicationController
       participantes = Array.new
 
       #Salvar os participantes
-      params[:championship][:user_ids].each do |participante|
-        part = Participant.new(championship_id: @championship.id, user_id: participante)
-        part.save
+      params[:championship][:user_ids].each do |user_id|
+        participant = Participant.new(championship_id: @championship.id, user_id: user_id)
+        participant.save
         participantes << part
       end
 
       if @championship.championship_type_id == @@id_pontos_corridos
         for i in (1..participantes.size-2)
           for j in (i+1..participantes.size-1)
-            partida = PontoscorridosPartida.new(championship_id: @championship.id, player1: participantes[i].user_id, player2: participantes[j].user_id, score_player1: 0, score_player2: 0, finished: false)
+            partida = PontoscorridosPartida.new(championship_id: @championship.id, player1: participantes[i].id, player2: participantes[j].id, score_player1: 0, score_player2: 0, finished: false)
             partida.save
           end
         end
@@ -72,9 +72,6 @@ class ChampionshipsController < ApplicationController
 
   def show
     @championship = Championship.find(params[:id])
-    @participants = @championship.participants
-    @games_unfinished = PontoscorridosPartida.where(championship_id: @championship.id, finished: false)
-    @games_finished = PontoscorridosPartida.where(championship_id: @championship.id, finished: true)
     if @championship.brackets?
       render :show_brackets
     else

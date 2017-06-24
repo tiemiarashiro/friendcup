@@ -1,86 +1,29 @@
-<%
-#Criar um hash para os usuários
-ranks = Array.new
-
-campeonato.participants.each do |participante|
-  r = Ranking.new(user_id: participante.user_id, played_games: 0, victories: 0, draws: 0, defeats: 0, points: 0)
-  ranks << r
-end
-campeonato.pontoscorridos_partidas.each do |partida|
-
-player1 = User.find_by_id(partida.player1)
-player2 = User.find_by_id(partida.player2)
-
-photo_p1 = (player1.link_photo == nil) ? "old_logo.png" : player1.link_photo
-photo_p2 = (player2.link_photo == nil) ? "old_logo.png" : player2.link_photo
-
-score_player1 = partida.finished ? partida.score_player1 : nil
-score_player2 = partida.finished ? partida.score_player2 : nil
-
-if partida.finished
-
-  p1 = ranks.find {|s| s.user_id == player1.id }
-  p2 = ranks.find {|t| t.user_id == player2.id }
-
-  p1.played_games += 1
-  p2.played_games += 1
-
-  if score_player1 > score_player2
-    p1.points += 11
-    p1.victories += 1
-    p2.points += 1
-    p2.defeats += 1
-  end
-
-  if score_player2 > score_player1
-    p2.points += 11
-    p2.victories += 1
-    p1.points += 1
-    p1.defeats += 1
-  end
-
-  if score_player1 == score_player2
-    p1.points += 4
-    p1.draws += 1
-    p2.points += 4
-    p2.draws += 1
-  end
-
-end
-end
-%>
-
-
-<strong>Classificação parcial</strong>
-
 <table class="table table-hover">
   <thead>
     <tr>
       <th>#</th>
       <th>Participante</th>
-      <th class="text-center">J</th>
+      <th class="text-center" style="border-right:1px solid #DDD;">J</th>
       <th class="text-center">V</th>
       <th class="text-center">E</th>
-      <th class="text-center">D</th>
+      <th class="text-center" style="border-right:1px solid #DDD;">D</th>
       <th class="text-center">Pontos</th>
     </tr>
   </thead>
 
   <tbody>
-    <% ranks2 = ranks.sort_by {|obj| [obj.points * -1, obj.victories * -1, obj.draws * -1, obj.user_id]} %>
+    <%  %>
     <% i = 1 %>
-    <% ranks2.each do |ranking| %>
-
+    <% campeonato.ranking.each_with_index do |ranking, index| %>
     <tr>
-      <td><%= i %></td>
-      <td><%= ranking.user.name %></td>
-      <td class="text-center"><%= ranking.played_games %></td>
+      <td><%= index %></td>
+      <td><%= ranking.participants.user.name %></td>
+      <td class="text-center" style="border-right:1px solid #DDD;"><%= ranking.played_games %></td>
       <td class="text-center"><%= ranking.victories %></td>
       <td class="text-center"><%= ranking.draws %></td>
-      <td class="text-center"><%= ranking.defeats %></td>
+      <td class="text-center" style="border-right:1px solid #DDD;"><%= ranking.defeats %></td>
       <td class="text-center"><%= ranking.points %></td>
     </tr>
-    <% i+=1 %>
     <% end %>
   </tbody>
 
