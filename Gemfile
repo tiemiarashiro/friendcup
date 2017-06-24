@@ -12,7 +12,6 @@ ruby '2.3.0'
 gem 'rails', '~> 5.0.2'
 # Use postgre as the database for Active Record
 gem 'pg'
-gem 'awesome_nested_set'
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
 # Use SCSS for stylesheets
