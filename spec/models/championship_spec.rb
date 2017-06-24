@@ -2,26 +2,31 @@ require 'rails_helper'
 
 describe Championship do
   
-  describe '#generete_brackets!' do
+  describe '#generate_brackets!' do
+    subject { FactoryGirl.create :championship }
+    
     it 'raises an Championship::InvalidParticipantsNumber if the number of participants is not power of 2' do
-      subject.participants = FactoryGirl.build_list :participant, 3
-      expect { subject.generete_brackets! }.to raise_error Championship::InvalidParticipantsNumber
+      allow(subject).to receive(:participants).and_return(FactoryGirl.build_list :participant, 3)
+      expect { subject.generate_brackets! }.to raise_error Championship::InvalidParticipantsNumber
     end
     
     it 'raises an Championship::InvalidChampionshipType if the number of participants is not power of 2' do
+      allow(subject).to receive(:participants).and_return(FactoryGirl.build_list :participant, 2)
       allow(subject).to receive(:brackets?).and_return(false)
-      expect { subject.generete_brackets! }.to raise_error Championship::InvalidChampionshipType
+      expect { subject.generate_brackets! }.to raise_error Championship::InvalidChampionshipType
     end
     
     it 'generates the brackets correctly' do
-      subject.participants = FactoryGirl.build_list :participant, 8
-      brackets = subject.generete_brackets!
+      allow(subject).to receive(:brackets?).and_return(true)
+      allow(subject).to receive(:participants).and_return(FactoryGirl.create_list :participant, 8, championship: subject)
+      subject.generate_brackets!
       
+      brackets = subject.brackets
       expect(brackets.count).to eq 7
       brackets.each do |bracket|
         expect(bracket.championship_id).to eq subject.id
       end
-      
+
       filled_brackets = brackets.select { |bracket| bracket.player_1.present? }
       expect(filled_brackets.count).to eq 4
       filled_brackets.each_with_object([]) do |bracket, players_in_matches|
@@ -41,7 +46,7 @@ describe Championship do
       
       brackets.reject { |bracket| bracket.in?(finals) }.each do |not_final_bracket|
         children = brackets.select { |bracket| bracket.parent == not_final_bracket}
-        expect(children.count).to eq 2
+        expect(children.count).to eq(2).or eq(0)
       end
     end
   end
