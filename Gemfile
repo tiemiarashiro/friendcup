@@ -8,6 +8,8 @@ end
 
 ruby '2.3.0'
 
+
+gem 'pry'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.2'
 # Use postgre as the database for Active Record

@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :participant do
-    user nil
-    championship nil
+    association :user
+    association :championship
   end
 end
