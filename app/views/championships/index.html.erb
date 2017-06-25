@@ -1,0 +1,107 @@
+<div class="row">
+    
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2 class="panel-title">Meus campeonatos</h2>
+            </div>
+            <div class="panel-body">
+                
+                <% if current_user.championships.size == 0 %>
+                    
+                    :( Você ainda não criou nenhum campeonato...<br><br>
+                    
+                <% else %>
+
+                    <table class="table table-hover">
+                        <tbody>
+                        <% current_user.championships.each do |campeonato| %>
+                            <tr>
+                                <td>
+                                    <%= link_to championship_path(campeonato.id) do %>
+                                        <i class="glyphicon glyphicon-king"></i>
+                                    <% end %>
+                                    <%= link_to campeonato.name, championship_path(campeonato.id) %>
+                                </td>
+                            </tr>
+                        <% end %>
+                        </tbody>
+                    </table>
+                    
+                <% end %>
+                
+                <%= link_to new_championship_path, class: "btn btn-warning" do %>
+                    <i class="glyphicon glyphicon-plus-sign"></i> Novo campeonato
+                <% end %>
+                
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2 class="panel-title">Campeonatos que eu participo</h2>
+            </div>
+            <div class="panel-body">
+                
+                <% if @championships.size == 0 %>
+                    
+                    :( Ninguém te convidou pra jogar...<br><br>
+                    
+                <% else %>
+
+                    <table class="table table-hover">
+                        <tbody>
+                        <% @championships.each do |campeonato| %>
+                            <tr>
+                                <td>
+                                    <%= link_to championship_path(campeonato.id) do %>
+                                        <i class="glyphicon glyphicon-queen"></i>
+                                    <% end %>
+                                    <%= link_to campeonato.name, championship_path(campeonato.id) %>
+                                </td>
+                            </tr>
+                        <% end %>
+                        </tbody>
+                    </table>
+                    
+                <% end %>
+                
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2 class="panel-title">Estatísticas de jogo</h2>
+            </div>
+            <div class="panel-body">
+                
+                <p>
+                    <i class="fa fa-trophy"></i> Campeonatos vencidos: <%= @rank.wins %> <br>
+                    <i class="fa fa-gamepad"></i> Partidas disputadas: <%= @rank.played_games %> <br>
+                    <i class="fa fa-calendar"></i> Partidas a disputar: <%= @rank.scheduled_games %>
+                </p>
+                
+                <hr>
+                
+                <p>
+                    <i class="fa fa-battery-full"></i> Vitórias:  <%= @rank.victories %><br>
+                    <i class="fa fa-battery-half"></i> Empates:  <%= @rank.draws %><br>
+                    <i class="fa fa-battery-empty"></i> Derrotas:  <%= @rank.defeats %>
+                </p>
+                
+                <hr>
+                
+                <p>
+                    <i class="fa fa-tasks"></i> Pontuação:  <%= @rank.points %><br>
+                    <i class="fa fa-signal"></i> Posição no ranking: #<%= @rank.position %>
+                </p>
+                
+            </div>
+        </div>
+    </div>
+    
+</div>

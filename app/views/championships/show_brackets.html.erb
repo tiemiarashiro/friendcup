@@ -1,0 +1,52 @@
+<div class="row">
+
+  <div class="col-md-6">
+
+    <legend>
+      <%= @championship.name %>
+    </legend>
+
+    <p>
+      <strong>Jogo: </strong> <%= @championship.game %><br>
+      <strong>Período: </strong> <%= @championship.starts_at.strftime("%d/%m/%Y") %> a <%= @championship.ends_at.strftime("%d/%m/%Y") %><br>
+      <strong>Tipo de campeonato: </strong> <%= @championship.championship_type.title %>
+      <% if @championship.finished? %>
+        <br>
+        <hr>
+        <strong>Vencedor: </strong> <%= User.find_by_id(@championship.winner).name %>
+        <% end %>
+      </p>
+
+    <p>
+      <%= link_to championships_path, class: "btn btn-warning" do %>
+      <i class="glyphicon glyphicon-menu-left"></i> Voltar
+      <% end %>
+    </p>
+
+    </div>
+
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h2 class="panel-title">Participantes</h2>
+        </div>
+
+        <div class="panel-body" style="max-height:120px; overflow-y:scroll;">
+          <%= render partial: 'participants', locals: {participants: @championship.participants} %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h2 class="panel-title">Chaves</h2>
+        </div>
+        <div class="panel-body js-brackets" id="partidas">
+          <%= render partial: 'brackets', locals: {championship: @championship} %>
+        </div>
+      </div>
+    </div>
+  </div>

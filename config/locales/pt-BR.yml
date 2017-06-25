@@ -11,3 +11,6 @@ pt-BR:
                     invalid: "incorreta"
                   password_confirmation:
                     confirmation: "- As senhas informadas não conferem"
+        attributes:
+          championship:
+            name: "Nome"

@@ -12,6 +12,7 @@ pt-BR:
         unlock_token: Token de desbloqueio
     models:
       user: Usuário
+      championship: Campeonato
   devise:
     confirmations:
       confirmed: A sua conta foi confirmada com sucesso.

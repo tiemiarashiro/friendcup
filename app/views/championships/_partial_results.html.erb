@@ -1,0 +1,30 @@
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Participante</th>
+      <th class="text-center" style="border-right:1px solid #DDD;">J</th>
+      <th class="text-center">V</th>
+      <th class="text-center">E</th>
+      <th class="text-center" style="border-right:1px solid #DDD;">D</th>
+      <th class="text-center">Pontos</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <%  %>
+    <% i = 1 %>
+    <% campeonato.ranking.each_with_index do |ranking, index| %>
+    <tr>
+      <td><%= index %></td>
+      <td><%= ranking.user.name %></td>
+      <td class="text-center" style="border-right:1px solid #DDD;"><%= ranking.played_games %></td>
+      <td class="text-center"><%= ranking.victories %></td>
+      <td class="text-center"><%= ranking.draws %></td>
+      <td class="text-center" style="border-right:1px solid #DDD;"><%= ranking.defeats %></td>
+      <td class="text-center"><%= ranking.points %></td>
+    </tr>
+    <% end %>
+  </tbody>
+
+</table>
