@@ -9,4 +9,10 @@ Rails.application.routes.draw do
   root to: 'homes#index'
 
   resources :championships
+
+  resources :brackets, only: [] do
+    member do
+      get 'finish' => 'brackets#finish'
+    end
+  end
 end

@@ -1,0 +1,9 @@
+<% if @error.blank? %>
+  <% if @bracket.championship.finished? %>
+    location.reload();
+  <% else %>
+    $('.js-brackets').html("<%= escape_javascript(render partial: 'championships/brackets', locals: { championship: @bracket.championship.reload }) %>");
+  <% end %>
+<% else %>
+  $('.js-brackets').prepend("<%= @error %>");
+<% end %>

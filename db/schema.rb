@@ -10,17 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170624191621) do
+ActiveRecord::Schema.define(version: 20170625030542) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "brackets", force: :cascade do |t|
-    t.integer "championship_id"
-    t.integer "player_1_id"
-    t.integer "player_2_id"
-    t.integer "winner_id"
-    t.integer "parent_id"
+    t.integer  "championship_id"
+    t.integer  "player_1_id"
+    t.integer  "player_2_id"
+    t.integer  "winner_id"
+    t.integer  "parent_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
     t.index ["championship_id"], name: "index_brackets_on_championship_id", using: :btree
     t.index ["parent_id"], name: "index_brackets_on_parent_id", using: :btree
     t.index ["player_1_id"], name: "index_brackets_on_player_1_id", using: :btree

@@ -36,8 +36,8 @@ class Championship < ApplicationRecord
     sorted_ranking = ranks.sort_by {|obj| [obj.points * -1, obj.victories * -1, obj.draws * -1, obj.user_id]}
   end
 
-  def full_loaded_final
-    all_brackets = brackets.to_a
+  def full_loaded_final(relations_to_include = {})
+    all_brackets = brackets.order(created_at: :desc).includes(relations_to_include).to_a
 
     all_brackets.each do |bracket|
       bracket.children = all_brackets.select { |b| b.parent_id == bracket.id}

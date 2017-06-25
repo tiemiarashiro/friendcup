@@ -15,4 +15,11 @@ class Bracket < ApplicationRecord
     self.winner.present?
   end
 
+  def final?
+    parent_id.blank?
+  end
+
+  def completed?
+    player_2_id.present? && player_1_id.present?    
+  end
 end
