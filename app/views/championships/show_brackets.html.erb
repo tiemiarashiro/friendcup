@@ -21,12 +21,6 @@
       <%= link_to championships_path, class: "btn btn-warning" do %>
       <i class="glyphicon glyphicon-menu-left"></i> Voltar
       <% end %>
-
-      <% if !@championship.finished? %>
-      <%= link_to championship_finish_path, class: "btn btn-warning", :method => :post do %>
-      <i class="glyphicon glyphicon-king"></i> Encerrar campeonato
-      <% end %>
-      <% end %>
     </p>
 
     </div>

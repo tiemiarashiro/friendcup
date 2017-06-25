@@ -112,61 +112,14 @@ class ChampionshipsController < ApplicationController
   def finalizar_campeonato
 
     campeonato = Championship.find_by_id(params[:id])
-
-    ranks = Array.new
-
-    campeonato.participants.each do |participante|
-        r = Ranking.new(user_id: participante.user_id, played_games: 0, victories: 0, draws: 0, defeats: 0, points: 0)
-        ranks << r
-    end
-
-    campeonato.pontoscorridos_partidas.each do |partida|
-
-      if partida.finished == false
-        redirect_to championship_path, :id => params[:id], :alert => "Não é possível encerrar o campeonato. Há partidas sem resultado"
-        return
-      end
-
-      #Sim, tudo isso e pra descobrir o vencedor -> me julgue
-      p1 = ranks.find {|s| s.user_id == partida.player1 }
-      p2 = ranks.find {|t| t.user_id == partida.player2 }
-
-      p1.played_games += 1
-      p2.played_games += 1
-
-      if partida.score_player1 > partida.score_player2
-          p1.points += 11
-          p1.victories += 1
-          p2.points += 1
-          p2.defeats += 1
-      end
-
-      if partida.score_player2 > partida.score_player1
-          p2.points += 11
-          p2.victories += 1
-          p1.points += 1
-          p1.defeats += 1
-      end
-
-      if partida.score_player1 == partida.score_player2
-          p1.points += 4
-          p1.draws += 1
-          p2.points += 4
-          p2.draws += 1
-      end
-
-    end
-
-    ranks2 = ranks.sort_by {|obj| [obj.points * -1, obj.victories * -1, obj.draws * -1, obj.user_id]}
-
-    #Setar o vencedor
-    campeonato.winner = ranks2[0].user_id
+    campeonato.ranking
+    campeonato.winner = campeonato.ranking.first.user_id
     campeonato.save
 
     #Recalcular o ranking geral
     %x[rake ranking:atualizar]
 
-    redirect_to championships_path
+    redirect_to campeonato
   end
 
   private
