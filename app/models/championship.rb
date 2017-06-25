@@ -50,7 +50,7 @@ class Championship < ApplicationRecord
     raise InvalidParticipantsNumber if Math.log2(participants.count) != Math.log2(participants.count).to_i
     raise InvalidChampionshipType unless self.brackets?
 
-    current_participants = participants.to_a
+    current_participants = participants.to_a.clone
 
     brackets = []
     while current_participants.present?
