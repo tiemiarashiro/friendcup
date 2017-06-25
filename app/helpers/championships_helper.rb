@@ -8,7 +8,7 @@ module ChampionshipsHelper
 
   def render_node(node, html)
     html += "<li>"
-    html += "<a>"+node.name+"</a>"
+    html += "<a>"+node.player1.user.name+" x "+node.player2.user.name+"</a>"
     if (node.children.count > 0)
       html +=  "<ul>";
       node.children.each do |child|

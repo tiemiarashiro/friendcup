@@ -11,14 +11,12 @@ class ChampionshipsController < ApplicationController
   def index
     @championships = Array.new
 
-    participam = Participant.where(user_id: current_user.id)
+    participations = Participant.where(user_id: current_user.id)
 
-    participam.each do |relacao|
-
-      if relacao.championship.user_id != current_user.id
-        @championships << relacao.championship
-      end
-
+    participations.each do |participation|
+      # if participation.championship.user_id != current_user.id
+        @championships << participation.championship
+      # end
     end
 
     #Informacoes de Ranking
@@ -41,20 +39,19 @@ class ChampionshipsController < ApplicationController
     @championship = Championship.new(attributes)
 
     if(@championship.save)
+      participants = Array.new
 
-      participantes = Array.new
-
-      #Salvar os participantes
+      #Salvar os participants
       params[:championship][:user_ids].each do |user_id|
         participant = Participant.new(championship_id: @championship.id, user_id: user_id)
         participant.save
-        participantes << part
+        participants << participant
       end
 
       if @championship.championship_type_id == @@id_pontos_corridos
-        for i in (1..participantes.size-2)
-          for j in (i+1..participantes.size-1)
-            partida = PontoscorridosPartida.new(championship_id: @championship.id, player1: participantes[i].id, player2: participantes[j].id, score_player1: 0, score_player2: 0, finished: false)
+        for i in (1..participants.size-2)
+          for j in (i+1..participants.size-1)
+            partida = PontoscorridosPartida.new(championship_id: @championship.id, player1: participants[i], player2: participants[j], score_player1: 0, score_player2: 0, finished: false)
             partida.save
           end
         end
@@ -62,7 +59,6 @@ class ChampionshipsController < ApplicationController
       else
         #Implementar caso de mata-mata
       end
-
 
       redirect_to @championship
     else

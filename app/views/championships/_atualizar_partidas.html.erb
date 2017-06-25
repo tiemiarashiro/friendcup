@@ -4,15 +4,15 @@
     <% campeonato.pontoscorridos_partidas.includes(:player1, :player2).each do |partida| %>
       <div class="row">
         <div class="col-md-3 text-right">
-          <%= image_tag(partida.player1.link_photo, width: "35px", height: "35px", class: "img-circle") %>
-          <%= partida.player1.name %>
+          <%= image_tag(partida.player1.user.link_photo, width: "35px", height: "35px", class: "img-circle") %>
+          <%= partida.player1.user.name %>
         </div>
         <div class="col-md-6 text-center">
           <%= partida.score_player1 %> &nbsp; <i class="glyphicon glyphicon-remove"></i> &nbsp; <%= partida.score_player2 %>
         </div>
         <div class="col-md-3 text-left">
-          <%= image_tag(partida.player2.link_photo, width: "35px", height: "35px", class: "img-circle")%>
-          <%= partida.player2.name %>
+          <%= image_tag(partida.player2.user.link_photo, width: "35px", height: "35px", class: "img-circle")%>
+          <%= partida.player2.user.name %>
         </div>
       </div>
     <% end %>
@@ -22,8 +22,8 @@
     <% campeonato.pontoscorridos_partidas.includes(:player1, :player2).each do |partida| %>
       <div class="row">
         <div class="col-md-3 text-right">
-          <%= image_tag(partida.player1.link_photo, width: "35px", height: "35px", class: "img-circle") %>
-          <%= partida.player1.name %>
+          <%= image_tag(partida.player1.user.link_photo, width: "35px", height: "35px", class: "img-circle") %>
+          <%= partida.player1.user.name %>
         </div>
         <div class="col-md-2 text-center">
           <%= number_field_tag("[score_player1]["+partida.id.to_s+"]", partida.score_player1,  max: 99, min: 0, class: "number-field") %>
@@ -35,8 +35,8 @@
           <%= number_field_tag("[score_player2]["+partida.id.to_s+"]", partida.score_player2, max: 99, min: 0, class: "number-field") %>
         </div>
         <div class="col-md-3 text-left">
-          <%= image_tag(partida.player2.link_photo, width: "35px", height: "35px", class: "img-circle")%>
-          <%= partida.player2.name %>
+          <%= image_tag(partida.player2.user.link_photo, width: "35px", height: "35px", class: "img-circle")%>
+          <%= partida.player2.user.name %>
         </div>
       </div>
     <% end %>

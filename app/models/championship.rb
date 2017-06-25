@@ -27,10 +27,10 @@ class Championship < ApplicationRecord
       ranks << r
     end
     self.pontoscorridos_partidas.where({finished: true}).includes(:player1, :player2).each do |partida|
-      rank1 = ranks.find {|s| s.user_id == partida.player1.id }
+      rank1 = ranks.find {|s| s.user_id == partida.player1.user.id }
       rank1.update_by_match(partida)
 
-      rank2 = ranks.find {|s| s.user_id == partida.player2.id }
+      rank2 = ranks.find {|s| s.user_id == partida.player2.user.id }
       rank2.update_by_match(partida)
     end
     sorted_ranking = ranks.sort_by {|obj| [obj.points * -1, obj.victories * -1, obj.draws * -1, obj.user_id]}

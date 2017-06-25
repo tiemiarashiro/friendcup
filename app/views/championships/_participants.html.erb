@@ -1,14 +1,8 @@
 <table class="table table-hover">
   <tbody>
-    <% @participants.each do |participante| %>
+    <% participants.each do |participant| %>
     <tr>
-      <% img_link = participante.user.link_photo %>
-
-      <% if img_link == nil %>
-      <% img_link = 'old_logo.png' %>
-      <% end %>
-
-      <td><%= image_tag(img_link, width: "35px", height: "35px", class: "img-circle") %> &nbsp; <%= participante.user.name %></td>
+      <td><%= image_tag(participant.user.link_photo, width: "35px", height: "35px", class: "img-circle") %> &nbsp; <%= participant.user.name %></td>
     </tr>
     <% end %>
   </tbody>
