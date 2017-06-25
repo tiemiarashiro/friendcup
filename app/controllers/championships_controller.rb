@@ -1,11 +1,11 @@
 class ChampionshipsController < ApplicationController
 
-  @@id_pontos_corridos = 1 #definir qual ID eh o de pontos corridos
+  ID_PONTOS_CORRIDOS = 1 #definir qual ID eh o de pontos corridos
 
   helper_method :id_pontos_corridos
 
   def id_pontos_corridos
-    @@id_pontos_corridos
+    ID_PONTOS_CORRIDOS
   end
 
   def index
@@ -36,19 +36,25 @@ class ChampionshipsController < ApplicationController
   def create
     attributes = permitted_params
     attributes[:user] = current_user
+
+    count_participants = params[:championship][:user_ids].select(&:present?).count
     @championship = Championship.new(attributes)
+    if(@championship.championship_type_id != ID_PONTOS_CORRIDOS && Math.log2(count_participants) != Math.log2(count_participants).to_i)
+      flash[:errors] = "O número de participantes é inválido"
+      render :new
+      return
+    end
 
     if(@championship.save)
       participants = Array.new
 
-      #Salvar os participants
       params[:championship][:user_ids].each do |user_id|
         participant = Participant.new(championship_id: @championship.id, user_id: user_id)
         participant.save
         participants << participant
       end
 
-      if @championship.championship_type_id == @@id_pontos_corridos
+      if @championship.championship_type_id == ID_PONTOS_CORRIDOS
         for i in (1..participants.size-2)
           for j in (i+1..participants.size-1)
             partida = PontoscorridosPartida.new(championship_id: @championship.id, player1: participants[i], player2: participants[j], score_player1: 0, score_player2: 0, finished: false)
@@ -57,7 +63,7 @@ class ChampionshipsController < ApplicationController
         end
 
       else
-        #Implementar caso de mata-mata
+        @championship.generate_brackets!
       end
 
       redirect_to @championship
@@ -168,5 +174,4 @@ class ChampionshipsController < ApplicationController
     def permitted_params
       params.require(:championship).permit(:name, :game, :starts_at, :ends_at, :championship_type_id, :user_ids)
     end
-
 end

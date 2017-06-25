@@ -1,6 +1,12 @@
+<% if flash[:errors].present? %>
+  <div class='alert alert-danger'>
+    <%= flash[:errors] %>
+  </div>
+<% end %>
+
 <%= simple_form_for(@championship) do |form| %>
 
-<legend>Detalhes do campeonato</legend>
+  <legend>Detalhes do campeonato</legend>
 
   <%= form.input :name, label: t('.name', default: "Nome do campeonato"), required: true %>
   <%= form.input :game, label: t('.game', default: "Jogo"), placeholder: "Futebol, xadrez, damas...", required: true %>
