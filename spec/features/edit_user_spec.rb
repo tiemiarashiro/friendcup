@@ -33,60 +33,10 @@ describe 'Edit User', type: :feature do
   it 'Edit name successfully' do
     
     fill_in "user_name", with: "Jordan"
-    fill_in "user_current_password", with: "123456"
-    
     first('input[type="submit"]').click
     
     expect(page).to have_content("A sua conta foi atualizada com sucesso")
     
-  end
-  
-  it "Change password successfully" do
-    
-    fill_in "user_current_password", with: "123456"
-    fill_in "user_password", with: "teste1"
-    fill_in "user_password_confirmation", with: "teste1"
-        
-    first('input[type="submit"]').click
-        
-    expect(page).to have_content("A sua conta foi atualizada com sucesso")
-        
-  end
-  
-  it "Change password error - new password too short" do
-     
-    fill_in "user_current_password", with: "123456"
-    fill_in "user_password", with: "12"
-    fill_in "user_password_confirmation", with: "12"
-        
-    first('input[type="submit"]').click
-        
-    expect(page).to have_content("deve conter ao menos")
-      
-  end
-  
-  it "Change password error - current password invalid" do
-    
-    fill_in "user_current_password", with: "12"
-    fill_in "user_password", with: "teste1"
-    fill_in "user_password_confirmation", with: "teste1"
-        
-    first('input[type="submit"]').click
-        
-    expect(page).to have_content("Senha atual incorreta")
-     
-  end
-  
-  it "Change password error - Different passwords" do
-  
-    fill_in "user_current_password", with: "123456"
-    fill_in "user_password", with: "teste1"
-    fill_in "user_password_confirmation", with: "teste2"
-        
-    first('input[type="submit"]').click
-        
-    expect(page).to have_content("As senhas informadas não conferem")
-  
   end
   
 end
