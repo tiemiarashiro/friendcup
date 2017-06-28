@@ -33,8 +33,6 @@ describe 'Edit User', type: :feature do
   it 'Edit name successfully' do
     
     fill_in "user_name", with: "Jordan"
-    fill_in "user_current_password", with: "123456"
-    
     first('input[type="submit"]').click
     
     expect(page).to have_content("A sua conta foi atualizada com sucesso")
