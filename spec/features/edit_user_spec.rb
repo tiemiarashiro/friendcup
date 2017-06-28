@@ -37,7 +37,7 @@ describe 'Edit User', type: :feature do
     
     first('input[type="submit"]').click
     
-    expect(page).to have_content("Your account has been updated successfully")
+    expect(page).to have_content("A sua conta foi atualizada com sucesso")
     
   end
   
@@ -49,7 +49,7 @@ describe 'Edit User', type: :feature do
         
     first('input[type="submit"]').click
         
-    expect(page).to have_content("Your account has been updated successfully")
+    expect(page).to have_content("A sua conta foi atualizada com sucesso")
         
   end
   
@@ -61,7 +61,7 @@ describe 'Edit User', type: :feature do
         
     first('input[type="submit"]').click
         
-    expect(page).to have_content("must have at least")
+    expect(page).to have_content("deve conter ao menos")
       
   end
   
@@ -73,7 +73,7 @@ describe 'Edit User', type: :feature do
         
     first('input[type="submit"]').click
         
-    expect(page).to have_content("password invalid")
+    expect(page).to have_content("Senha atual incorreta")
      
   end
   
@@ -85,7 +85,7 @@ describe 'Edit User', type: :feature do
         
     first('input[type="submit"]').click
         
-    expect(page).to have_content("The informed passwords are different")
+    expect(page).to have_content("As senhas informadas não conferem")
   
   end
   

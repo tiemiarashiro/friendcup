@@ -13,95 +13,119 @@ namespace :ranking do
       if ((campeonato.winner != 0) and (campeonato.winner != nil))
         #Se nao tiver no hash, incluir
         if h.has_key?(campeonato.winner) == false
-          h[campeonato.winner] = 1
+          h[campeonato.winner] = Ranking.new(user_id: campeonato.winner, played_games: 0, scheduled_games: 0, victories: 0, draws: 0, defeats: 0, points: 100, wins: 1)
         else
-          h[campeonato.winner] = h[campeonato.winner] + 1
+          h[campeonato.winner].wins += 1
+          h[campeonato.winner].points += 100
         end
       end
-    end
+      
+      #Pontos corridos: iterar pelas partidas
+      if campeonato.championship_type_id == 1
+        
+        campeonato.pontoscorridos_partidas.each do |partida|
+          
+          id_p1 = partida.player1.user.id
+          id_p2 = partida.player2.user.id
+          
+          if h.has_key?(id_p1) == false
+            h[id_p1] = Ranking.new(user_id: id_p1, played_games: 0, scheduled_games: 0, victories: 0, draws: 0, defeats: 0, points: 0, wins: 0)
+          end
+          
+          if h.has_key?(id_p2) == false
+            h[id_p2] = Ranking.new(user_id: id_p2, played_games: 0, scheduled_games: 0, victories: 0, draws: 0, defeats: 0, points: 0, wins: 0)
+          end
+          
+          #apenas partidas finalizadas são contadas
+          if(partida.finished)
+            h[id_p1].played_games += 1
+            h[id_p2].played_games += 1
+            h[id_p1].points += 1
+            h[id_p2].points += 1
+            
+            #Vitoria do p1
+            if partida.score_player1 > partida.score_player2
+              h[id_p1].victories += 1
+              h[id_p1].points += 10
+              h[id_p2].defeats += 1
+            end
+            
+            #Empate
+            if partida.score_player1 == partida.score_player2
+              h[id_p1].draws += 1
+              h[id_p2].draws += 1
+              h[id_p1].points += 3
+              h[id_p2].points += 3
+            end
+            
+            #Vitoria do P2
+            if partida.score_player2 > partida.score_player1
+              h[id_p2].victories += 1
+              h[id_p2].points += 10
+              h[id_p1].defeats += 1
+            end
+            
+          else
+            h[id_p1].scheduled_games += 1
+            h[id_p2].scheduled_games += 1
+          end
+          
+        end
+        
+      end #Fim campeonato pontos corridos
+      
+      #Chaves: iterar pelas chaves
+      if campeonato.championship_type_id == 2
+        
+        campeonato.brackets.each do |bracket|
+          
+          id_p1 = bracket.player_1.user.id
+          id_p2 = bracket.player_2.user.id
+          
+          if h.has_key?(id_p1) == false
+            h[id_p1] = Ranking.new(user_id: id_p1, played_games: 0, scheduled_games: 0, victories: 0, draws: 0, defeats: 0, points: 0, wins: 0)
+          end
+          
+          if h.has_key?(id_p2) == false
+            h[id_p2] = Ranking.new(user_id: id_p2, played_games: 0, scheduled_games: 0, victories: 0, draws: 0, defeats: 0, points: 0, wins: 0)
+          end
+          
+          if(bracket.winner != nil)
+            h[id_p1].played_games += 1
+            h[id_p2].played_games += 1
+            h[id_p1].points += 1
+            h[id_p2].points += 1
+            
+            #Vitoria do p1
+            if bracket.winner.user.id == id_p1
+              h[id_p1].victories += 1
+              h[id_p1].points += 10
+              h[id_p2].defeats += 1
+            end
+            
+            #vitori
+            if bracket.winner.user.id == id_p2
+              h[id_p2].victories += 1
+              h[id_p2].points += 10
+              h[id_p1].defeats += 1
+            end
+            
+          else
+            h[id_p1].scheduled_games += 1
+            h[id_p2].scheduled_games += 1
+          end
+          
+        end
+        
+      end
+      
+    end #Fim loop campeonatos
     
-    puts "Iterando pelos usuarios"
-    User.all.each do |usuario|
-      
-      #Contar numero de partidas
-      partidas_p1 = PontoscorridosPartida.where(player1: usuario.id)
-      partidas_p2 = PontoscorridosPartida.where(player2: usuario.id)
-      
-      num_partidas = partidas_p1.size + partidas_p2.size
-      
-      partidas_jogadas = 0
-      partidas_programadas = 0
-      campeonatos_vencidos = 0
-      vitorias = 0
-      empates = 0
-      derrotas = 0
-      pontos = 0
-      
-      if h.has_key?(usuario.id)
-        campeonatos_vencidos = h[usuario.id]
-      end
-      
-      partidas_p1.each do |partida|
-        
-        if partida.finished
-          #Incrementar o contador de partidas jogadas
-          partidas_jogadas = partidas_jogadas + 1
-          
-          #Metricas
-          if partida.score_player1 > partida.score_player2
-            vitorias = vitorias + 1
-          end
-        
-          if partida.score_player1 == partida.score_player2
-            empates = empates + 1
-          end
-          
-          if partida.score_player1 < partida.score_player2
-            derrotas = derrotas + 1
-          end
-          
-        else
-          #Partidas programadas
-          partidas_programadas = partidas_programadas + 1
-        end
-        
-      end
-      
-      partidas_p2.each do |partida|
-        
-        if partida.finished
-          #Incrementar o contador de partidas jogadas
-          partidas_jogadas = partidas_jogadas + 1
-          
-          #Metricas
-          if partida.score_player2 > partida.score_player1
-            vitorias = vitorias + 1
-          end
-        
-          if partida.score_player2 == partida.score_player1
-            empates = empates + 1
-          end
-          
-          if partida.score_player2 < partida.score_player1
-            derrotas = derrotas + 1
-          end
-          
-        else
-          #Partidas programadas
-          partidas_programadas = partidas_programadas + 1
-        end
-        
-      end
-        
-      #Fim Gerenciador de partidas
-      pontos = campeonatos_vencidos*100 + partidas_jogadas*1 + vitorias*10 + empates*3
-      
-      #Incluir registro no ranking
-      rank = Ranking.new(user_id: usuario.id, played_games: partidas_jogadas, scheduled_games: partidas_programadas, victories: vitorias, draws: empates, defeats: derrotas, points: pontos, wins: campeonatos_vencidos)
-      rank.save
+    puts "Criando o ranking"
+    h.each_value do |registro|
+      registro.save
     end
-    #Fim do loop de usuarios
-    
+  
     puts "Ordenando o ranking"
     ranking = Ranking.order(points: :desc, victories: :desc, draws: :desc, played_games: :desc, user_id: :asc)
     count = 1
@@ -109,10 +133,9 @@ namespace :ranking do
       rank.position = count
       rank.save
       
-      count = count + 1
+      count += 1
     end
+  
+  end  
     
-  end
-  #Fim da task
-
 end

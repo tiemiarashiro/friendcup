@@ -16,7 +16,7 @@
     <% i = 1 %>
     <% campeonato.ranking.each_with_index do |ranking, index| %>
     <tr>
-      <td><%= index %></td>
+      <td><%= index+1 %></td>
       <td><%= ranking.user.name %></td>
       <td class="text-center" style="border-right:1px solid #DDD;"><%= ranking.played_games %></td>
       <td class="text-center"><%= ranking.victories %></td>

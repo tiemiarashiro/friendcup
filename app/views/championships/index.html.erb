@@ -59,13 +59,14 @@
                                     <%= link_to championship_path(campeonato.id) do %>
                                         <i class="glyphicon glyphicon-queen"></i>
                                     <% end %>
-                                    <%= link_to campeonato.name, championship_path(campeonato.id) %>
+                                    <%= link_to championship_path(campeonato.id) do %>
+                                        <%= campeonato.name.force_encoding("UTF-8") %>
+                                    <% end %>
                                 </td>
                             </tr>
                         <% end %>
                         </tbody>
                     </table>
-                    
                 <% end %>
                 
             </div>

@@ -21,11 +21,11 @@ describe 'Sign In', type: :feature do
     
     first('input[type="submit"]').click
     
-    expect(page).to have_content("Signed in successfully.")
+    expect(page).to have_content("Login efetuado com sucesso")
     
     click_link("Sair")
     
-    expect(page).to have_content("Signed out successfully")
+    expect(page).to have_content("Logout efetuado com sucesso")
     
   end
 
@@ -40,7 +40,7 @@ describe 'Sign In', type: :feature do
     
     first('input[type="submit"]').click
     
-    expect(page).to have_content("Invalid Email or password")
+    expect(page).to have_content("Email ou senha inválidos")
   end
   
   
