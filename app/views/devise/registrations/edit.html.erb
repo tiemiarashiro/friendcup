@@ -15,7 +15,7 @@
       </div>
       
       <!-- O usuario so pode alterar a senha se seu login nao for com facebook -->
-      <% if not current_user.provider = "Facebook" %>
+      <% if not current_user.provider == "Facebook" %>
         <div class="form-group">
           <%= f.label :password %> <i>(<%= t('.leave_blank_if_you_don_t_want_to_change_it', default: "leave blank if you don't want to change it") %>)</i>
           <%= f.password_field :password, autocomplete: "off", class: 'form-control' %>
