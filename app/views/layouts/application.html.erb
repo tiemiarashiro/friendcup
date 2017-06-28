@@ -47,9 +47,16 @@
     </nav>
 
     <div class="container">
-      <% if notice %><div class="alert alert-info"><%= notice %></div><% end %>
-      <% if alert %><div class="alert alert-warning"><%= alert %></div><% end %>
-
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+      <script type='text/javascript' src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
+      
+      <% if notice %>
+       <script>bootbox.alert("<%= notice %>");</script>
+      <% end %>
+      <% if alert %>
+        <script>bootbox.alert("<%= alert %>");</script>
+      <% end %>
       <%= yield %>
       <!-- Codigo comentado porque aparece em todas as paginas
       <div class="starter-template">
