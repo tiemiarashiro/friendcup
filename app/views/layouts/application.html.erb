@@ -20,8 +20,7 @@
             <span class="icon-bar"></span>
           </button>
           <%= link_to root_path, class: "logo-link" do %>
-              <%= image_tag 'logo-white.png', class: 'logo' %>
-            FriendCup
+            Making Magic
           <% end %>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
@@ -29,7 +28,6 @@
             <ul class="nav navbar-nav" id="menu-navbar">
               <li class="<%=active_for('homes')%>"><%= link_to 'Home', root_path %></li>
               <li class="<%=active_for('championships')%>"><%= link_to 'Campeonatos', championships_path %></li>
-              <li class="<%=active_for('ranking')%>"><%= link_to 'Ranking', ranking_path %></li>
             </ul>
           <% end %>
 
