@@ -6,7 +6,7 @@ git_source(:github) do |repo_name|
 end
 
 
-ruby '2.3.4'
+ruby '2.3.0'
 
 
 gem 'pry-rails'
