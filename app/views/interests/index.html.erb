@@ -1,0 +1,21 @@
+<table class="table">
+
+  <thead>
+    <th>Jogador</th>
+    <th>Formato</th>
+    <th>Local</th>
+    <th>Data e Hora</th>
+  </thead>
+
+  <tbody>
+    <% @interests.each do |interest| %>
+      <tr>
+        <th><%= interest.user.name %></th>
+        <th><%= interest.format %></th>
+        <th><%= interest.local %></th>
+        <th><%= interest.datetime %></th>
+      </tr>
+    <% end %>
+  </tbody>
+
+</table>
