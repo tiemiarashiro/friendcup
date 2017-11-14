@@ -55,6 +55,8 @@ gem 'simple_form'
 
 gem 'rails-i18n'
 
+gem 'has_scope'
+
 #Para evitar bug de encoding
 gem 'string-scrub'
 
